@@ -1,4 +1,4 @@
-name: .NET Core Desktop
+name: .NET Framework Desktop
 
 on:
   push:
@@ -32,6 +32,11 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
       with:
         vs-version: '[16.11,)'
+
+    - name: Install .NET Framework 4.5 Developer Pack
+      run: |
+        Invoke-WebRequest -Uri "https://download.microsoft.com/download/E/2/1/E21644B5-2DF2-47C2-91BD-63C560427900/NDP452-KB2901907-x86-x64-DevPack.exe" -OutFile "NDP452-KB2901907-x86-x64-DevPack.exe"
+        Start-Process -FilePath "NDP452-KB2901907-x86-x64-DevPack.exe" -ArgumentList "/quiet", "/norestart" -Wait
 
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.0.5
